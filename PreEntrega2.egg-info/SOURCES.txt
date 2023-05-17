@@ -1,0 +1,7 @@
+setup.py
+PreEntrega2.egg-info/PKG-INFO
+PreEntrega2.egg-info/SOURCES.txt
+PreEntrega2.egg-info/dependency_links.txt
+PreEntrega2.egg-info/top_level.txt
+program/client.py
+program/main.py

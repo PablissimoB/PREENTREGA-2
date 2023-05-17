@@ -1,10 +1,10 @@
 from client import Client
 
-database ={}
+database =[]
 continuar = False
 
-def post_data(myDatabase):
-    print("----INGRESAR----" )
+def post_data():
+    print("----CREAR OBJETO----" )
     first_name = input("Ingrese el nombre: ")
     last_name = input("Ingrese el apellido: ")
     email = input("Ingrese el email: ")
@@ -17,10 +17,14 @@ def post_data(myDatabase):
             last_name,
             email,
             password
-        )        
+        )
+        database.append(email)
 
-def get_all_data():
-    print("----CONSULTAR----" )
+def get_all_data(myDatabase):
+    print("----CONSULTAR TODOS LOS OBJETOS----" )
+    for objeto in myDatabase:
+        objeto.print_client()
+        print("------------------" )
     print("------------------" )
     return False
 
@@ -28,7 +32,10 @@ def log_user(myDatabase):
         print("----LOGIN----" )
         mail = input("Ingrese el mail: ")
         password = input("Ingrese el password: ")
-        contrasena = myDatabase.get(mail)
+        contrasena = None
+        for objeto in myDatabase:
+            if objeto.email == mail:
+                contrasena = objeto.password
         if contrasena == password:
             print("bienvenido")
             return True
@@ -36,13 +43,16 @@ def log_user(myDatabase):
             print("Usuario o Password incorrecto")
             return False
 
-def get_data():
-    print("----CONSULTAR----" )
+def get_data(myDatabase):
+    print("----CONSULTAR OBJETO----" )
     mail = input("Ingrese el email a consultar: ")
+    for objeto in myDatabase:
+        if objeto.email == mail:
+            objeto.print_client()
     print("------------------" )
     return False
 
-def myPanel(myDatabase):
+def myPanel():
     print("-------MENU-------" )
     print("Elija la opción:")
     print("1-Ingresar datos")
@@ -52,15 +62,15 @@ def myPanel(myDatabase):
     print("0-Salir")
     opcion = input()
     if opcion == "1":
-        post_data(myDatabase)
+        post_data()
         return False
     elif opcion == "2":
-        get_all_data(myDatabase)
+        get_all_data(database)
         return False
     elif opcion == "3":
-        return log_user(myDatabase)
+        return log_user(database)
     elif opcion == "4":
-        return get_data()
+        return get_data(database)
     elif opcion == "0":
         return True
     else:
@@ -69,6 +79,6 @@ def myPanel(myDatabase):
 
 def myProgram(panel): 
     while panel != True:
-        panel = myPanel(database)
+        panel = myPanel()
         
 myProgram(continuar)
